@@ -250,7 +250,8 @@ class MysqlSchemaParser extends BaseSchemaParser
                     $default = 'false';
                 }
             }
-            if (in_array($default, array('CURRENT_TIMESTAMP'))) {
+            if (in_array($default, array('CURRENT_TIMESTAMP', 'current_timestamp()'))) {
+                $default = 'CURRENT_TIMESTAMP';
                 $type = ColumnDefaultValue::TYPE_EXPR;
             } else {
                 $type = ColumnDefaultValue::TYPE_VALUE;
