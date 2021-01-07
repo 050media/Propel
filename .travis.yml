@@ -17,17 +17,17 @@ php:
 env:
   - DB=mysql DB_USER=root
 
+before_install:
+  - composer self-update --1
+
+install:
+  - composer install --prefer-source
+
 before_script:
-  # MySQL
   - echo -e "[client]\ndefault-character-set=utf8mb4\n[mysql]\ndefault-character-set=utf8mb4\n[mysqld]\ncollation-server=utf8mb4_unicode_ci\ninit-connect='SET NAMES utf8mb4'\ncharacter-set-server=utf8mb4" | sudo tee /etc/mysql/conf.d/utf8.cnf
   - sudo service mysql restart && ln -s /var/run/mysqld/mysqld.sock /tmp/mysql.sock
   - sh -c "[ '$DB' = 'mysql' ] && mysql -e 'SET FOREIGN_KEY_CHECKS = 0; DROP DATABASE IF EXISTS test; DROP SCHEMA IF EXISTS second_hand_books; DROP SCHEMA IF EXISTS contest; DROP DATABASE IF EXISTS reverse_bookstore; DROP SCHEMA IF EXISTS bookstore_schemas; SET FOREIGN_KEY_CHECKS = 1;'"
   - sh -c "[ '$DB' = 'mysql' ] && mysql -e 'CREATE DATABASE test; CREATE SCHEMA bookstore_schemas; CREATE SCHEMA contest; CREATE SCHEMA second_hand_books; CREATE DATABASE reverse_bookstore;'"
-
-  # Composer
-  - composer self-update --1
-  - composer install --prefer-source
-
   - ./test/reset_tests.sh
 
 script: vendor/bin/phpunit
