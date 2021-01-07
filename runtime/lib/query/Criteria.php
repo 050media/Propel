@@ -1258,6 +1258,7 @@ class Criteria implements IteratorAggregate
      * Set offset.
      *
      * @param int $offset An int with the value for offset.
+     *
      * @return Criteria Modified Criteria object (for fluent API)
      */
     public function setOffset($offset)

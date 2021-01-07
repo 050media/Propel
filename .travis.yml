@@ -1,4 +1,5 @@
 language: php
+dist: trusty
 
 branches:
   only:
@@ -29,9 +30,12 @@ before_script:
 
   - ./test/reset_tests.sh
 
-script: phpunit
+script: vendor/bin/phpunit
 
 matrix:
+  include:
+    - php: 5.3
+      dist: precise
   allow_failures:
     - php: 5.4
     - php: 5.5
