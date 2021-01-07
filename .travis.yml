@@ -25,8 +25,8 @@ before_script:
   - sh -c "[ '$DB' = 'mysql' ] && mysql -e 'CREATE DATABASE test; CREATE SCHEMA bookstore_schemas; CREATE SCHEMA contest; CREATE SCHEMA second_hand_books; CREATE DATABASE reverse_bookstore;'"
 
   # Composer
-  - wget http://getcomposer.org/composer.phar
-  - php composer.phar install --1 --prefer-source
+  - composer self-update --1
+  - composer install --prefer-source
 
   - ./test/reset_tests.sh
 
